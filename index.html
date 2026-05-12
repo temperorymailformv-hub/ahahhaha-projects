@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luxury Mansion - A-Frame</title>
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.10.10/dist/nipplejs.js"></script>
     <style>
         body {
             margin: 0;
@@ -30,6 +31,22 @@
         #info p {
             margin: 5px 0;
         }
+        .joystick-container {
+            position: absolute;
+            bottom: 20px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            z-index: 50;
+        }
+        #left-joystick {
+            left: 20px;
+        }
+        #right-joystick {
+            right: 20px;
+        }
     </style>
 </head>
 <body>
@@ -37,8 +54,12 @@
         <h2>🏰 Luxury Mansion</h2>
         <p><strong>Controls:</strong></p>
         <p>W/A/S/D - Move | Space - Up | Ctrl - Down</p>
-        <p>Mouse - Look Around</p>
+        <p>Mouse - Look Around | Joysticks for mobile</p>
     </div>
+
+    <!-- Joystick containers -->
+    <div id="left-joystick" class="joystick-container"></div>
+    <div id="right-joystick" class="joystick-container"></div>
 
     <a-scene background="color: #87CEEB">
         <!-- Assets -->
@@ -362,6 +383,60 @@
     </a-scene>
 
     <script>
+        // Joystick variables
+        let joystickLeft = null;
+        let joystickRight = null;
+        let leftStickX = 0;
+        let leftStickY = 0;
+        let rightStickX = 0;
+        let rightStickY = 0;
+
+        // Initialize joysticks
+        function initJoysticks() {
+            // Left joystick for movement
+            joystickLeft = nipplejs.create({
+                zone: document.getElementById('left-joystick'),
+                mode: 'static',
+                position: { left: '50%', bottom: '50%' },
+                color: 'blue',
+                size: 100,
+                multitouch: true
+            });
+
+            joystickLeft.on('move', function(evt, data) {
+                leftStickX = data.x / 100;
+                leftStickY = data.y / 100;
+            });
+
+            joystickLeft.on('end', function() {
+                leftStickX = 0;
+                leftStickY = 0;
+            });
+
+            // Right joystick for camera look
+            joystickRight = nipplejs.create({
+                zone: document.getElementById('right-joystick'),
+                mode: 'static',
+                position: { right: '50%', bottom: '50%' },
+                color: 'red',
+                size: 100,
+                multitouch: true
+            });
+
+            joystickRight.on('move', function(evt, data) {
+                rightStickX = data.x / 100;
+                rightStickY = data.y / 100;
+            });
+
+            joystickRight.on('end', function() {
+                rightStickX = 0;
+                rightStickY = 0;
+            });
+        }
+
+        // Call init when DOM is ready
+        document.addEventListener('DOMContentLoaded', initJoysticks);
+
         // Enhanced movement with smooth controls
         AFRAME.registerComponent('movement-controls', {
             schema: {
@@ -392,7 +467,7 @@
                 const right = new THREE.Vector3();
                 right.crossVectors(camera.object3D.up, cameraDir).normalize();
 
-                // Movement
+                // Keyboard movement
                 if (keys['w'] || keys['W']) velocity.add(cameraDir.multiplyScalar(data.speed));
                 if (keys['s'] || keys['S']) velocity.sub(cameraDir.clone().multiplyScalar(data.speed));
                 if (keys['a'] || keys['A']) velocity.sub(right.clone().multiplyScalar(data.speed));
@@ -400,7 +475,24 @@
                 if (keys[' ']) el.object3D.position.y += data.speed;
                 if (keys['Control']) el.object3D.position.y -= data.speed;
 
+                // Joystick movement
+                if (Math.abs(leftStickX) > 0.1) {
+                    velocity.add(right.clone().multiplyScalar(leftStickX * data.speed * 1.5));
+                }
+                if (Math.abs(leftStickY) > 0.1) {
+                    velocity.add(cameraDir.clone().multiplyScalar(-leftStickY * data.speed * 1.5));
+                }
+
                 el.object3D.position.add(velocity);
+
+                // Joystick camera look
+                if (Math.abs(rightStickX) > 0.1 || Math.abs(rightStickY) > 0.1) {
+                    const euler = new THREE.Euler(0, 0, 0, 'YXZ');
+                    euler.setFromQuaternion(camera.object3D.quaternion);
+                    euler.y -= rightStickX * 0.05;
+                    euler.x -= rightStickY * 0.05;
+                    camera.object3D.quaternion.setFromEuler(euler);
+                }
             }
         });
 
