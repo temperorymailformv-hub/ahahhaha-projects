@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Mansion - A-Frame</title>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        #info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 100;
+            max-width: 300px;
+        }
+        #info h2 {
+            margin: 0 0 10px 0;
+            color: #FFD700;
+        }
+        #info p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="info">
+        <h2>🏰 Luxury Mansion</h2>
+        <p><strong>Controls:</strong></p>
+        <p>W/A/S/D - Move | Space - Up | Ctrl - Down</p>
+        <p>Mouse - Look Around</p>
+    </div>
+
+    <a-scene background="color: #87CEEB">
+        <!-- Assets -->
+        <a-assets>
+            <a-asset-item id="bugatti" src="buggati_chiron.glb"></a-asset-item>
+        </a-assets>
+
+        <!-- Lighting -->
+        <a-light type="ambient" color="white" intensity="0.8"></a-light>
+        <a-light type="directional" color="white" intensity="1" position="5 10 5"></a-light>
+
+        <!-- Camera with movement controls -->
+        <a-entity id="camera-rig" movement-controls="speed: 0.1; fly: true" position="0 1.6 -20" look-controls>
+            <a-camera position="0 0 0"></a-camera>
+        </a-entity>
+
+        <!-- GROUND & LANDSCAPE -->
+        <a-plane id="ground" position="0 0 0" rotation="-90 0 0" width="200" height="200" color="#2d5016" material="side: double"></a-plane>
+
+        <!-- Decorative garden path -->
+        <a-plane position="0 0.01 -10" rotation="-90 0 0" width="3" height="60" color="#8B7355"></a-plane>
+
+        <!-- MAIN MANSION BUILDING -->
+        <a-entity position="0 0 20">
+            <!-- Foundation/Base -->
+            <a-box position="0 0 0" width="40" height="0.5" depth="30" color="#654321" material="side: double"></a-box>
+            
+            <!-- Main walls (cream color) -->
+            <a-box position="0 8 0" width="40" height="16" depth="30" color="#F5DEB3" material="side: double"></a-box>
+            
+            <!-- Roof -->
+            <a-cone position="0 18 0" radius-bottom="22" radius-top="0" height="8" color="#8B4513" material="side: double"></a-cone>
+
+            <!-- Front entrance columns -->
+            <a-cylinder position="-15 8 -15.5" radius="1.5" height="16" color="#D3D3D3"></a-cylinder>
+            <a-cylinder position="15 8 -15.5" radius="1.5" height="16" color="#D3D3D3"></a-cylinder>
+            <a-cylinder position="-8 8 -15.5" radius="1" height="16" color="#D3D3D3"></a-cylinder>
+            <a-cylinder position="8 8 -15.5" radius="1" height="16" color="#D3D3D3"></a-cylinder>
+
+            <!-- Front door -->
+            <a-box position="0 7 -15.2" width="3" height="8" depth="0.3" color="#4a2511"></a-box>
+            <a-cylinder position="2.5 7 -15.1" radius="0.3" height="0.3" color="#FFD700" rotation="0 0 90"></a-cylinder>
+
+            <!-- Front windows (upper level) -->
+            <a-box position="-12 12 -15.1" width="2.5" height="2.5" depth="0.2" color="#87CEEB"></a-box>
+            <a-box position="-5 12 -15.1" width="2.5" height="2.5" depth="0.2" color="#87CEEB"></a-box>
+            <a-box position="5 12 -15.1" width="2.5" height="2.5" depth="0.2" color="#87CEEB"></a-box>
+            <a-box position="12 12 -15.1" width="2.5" height="2.5" depth="0.2" color="#87CEEB"></a-box>
+
+            <!-- Front windows (middle level) -->
+            <a-box position="-12 7 -15.1" width="2.5" height="2.5" depth="0.2" color="#87CEEB"></a-box>
+            <a-box position="-5 7 -15.1" width="2.5" height="2.5" depth="0.2" color="#87CEEB"></a-box>
+            <a-box position="5 7 -15.1" width="2.5" height="2.5" depth="0.2" color="#87CEEB"></a-box>
+            <a-box position="12 7 -15.1" width="2.5" height="2.5" depth="0.2" color="#87CEEB"></a-box>
+
+            <!-- Right side windows -->
+            <a-box position="20.1 12 -5" width="0.2" height="2.5" depth="2.5" color="#87CEEB"></a-box>
+            <a-box position="20.1 7 -5" width="0.2" height="2.5" depth="2.5" color="#87CEEB"></a-box>
+            <a-box position="20.1 12 5" width="0.2" height="2.5" depth="2.5" color="#87CEEB"></a-box>
+            <a-box position="20.1 7 5" width="0.2" height="2.5" depth="2.5" color="#87CEEB"></a-box>
+
+            <!-- Left side windows -->
+            <a-box position="-20.1 12 -5" width="0.2" height="2.5" depth="2.5" color="#87CEEB"></a-box>
+            <a-box position="-20.1 7 -5" width="0.2" height="2.5" depth="2.5" color="#87CEEB"></a-box>
+            <a-box position="-20.1 12 5" width="0.2" height="2.5" depth="2.5" color="#87CEEB"></a-box>
+            <a-box position="-20.1 7 5" width="0.2" height="2.5" depth="2.5" color="#87CEEB"></a-box>
+
+            <!-- Back windows -->
+            <a-box position="-12 12 14.9" width="2.5" height="2.5" depth="0.2" color="#87CEEB"></a-box>
+            <a-box position="0 12 14.9" width="2.5" height="2.5" depth="0.2" color="#87CEEB"></a-box>
+            <a-box position="12 12 14.9" width="2.5" height="2.5" depth="0.2" color="#87CEEB"></a-box>
+
+            <!-- Decorative trim -->
+            <a-box position="0 15.8 0" width="42" height="0.5" depth="31" color="#8B7355"></a-box>
+            <a-box position="-20.5 10 0" width="0.5" height="10" depth="31" color="#8B7355"></a-box>
+            <a-box position="20.5 10 0" width="0.5" height="10" depth="31" color="#8B7355"></a-box>
+        </a-entity>
+
+        <!-- INTERIOR ROOMS - LEFT WING -->
+        <!-- Living Room -->
+        <a-entity position="-12 5 -5">
+            <!-- Sofas -->
+            <a-box position="0 0.3 0" width="5" height="0.6" depth="2" color="#8B0000"></a-box>
+            <a-box position="-4 0.3 0" width="2" height="0.6" depth="2" color="#8B0000"></a-box>
+            <!-- Coffee table -->
+            <a-box position="0 0.35 0" width="3" height="0.3" depth="1.5" color="#654321"></a-box>
+            <!-- Fireplace -->
+            <a-box position="0 1 3" width="2" height="2" depth="0.5" color="#696969"></a-box>
+            <!-- Label -->
+            <a-text value="Living Room" position="0 2.5 0" color="white" font-size="24"></a-text>
+        </a-entity>
+
+        <!-- Kitchen -->
+        <a-entity position="10 5 -5">
+            <!-- Counter -->
+            <a-box position="0 0.4 0" width="6" height="0.8" depth="2.5" color="#D3D3D3"></a-box>
+            <!-- Stove -->
+            <a-box position="2 0.9 0" width="1.5" height="0.5" depth="1" color="#333333"></a-box>
+            <!-- Refrigerator -->
+            <a-box position="-2.5 1 0" width="1.5" height="2" depth="1" color="#C0C0C0"></a-box>
+            <!-- Island -->
+            <a-box position="0 0.4 -1.5" width="3" height="0.8" depth="1.5" color="#A0522D"></a-box>
+            <!-- Label -->
+            <a-text value="Kitchen" position="0 2.5 0" color="white" font-size="24"></a-text>
+        </a-entity>
+
+        <!-- INTERIOR ROOMS - CENTER -->
+        <!-- Dining Room -->
+        <a-entity position="0 5 8">
+            <!-- Dining table -->
+            <a-box position="0 0.4 0" width="8" height="0.6" depth="4" color="#654321"></a-box>
+            <!-- Chairs (simplified) -->
+            <a-box position="-3 0.3 -2.5" width="1" height="1" depth="1" color="#8B4513"></a-box>
+            <a-box position="3 0.3 -2.5" width="1" height="1" depth="1" color="#8B4513"></a-box>
+            <a-box position="-3 0.3 2.5" width="1" height="1" depth="1" color="#8B4513"></a-box>
+            <a-box position="3 0.3 2.5" width="1" height="1" depth="1" color="#8B4513"></a-box>
+            <!-- Chandelier -->
+            <a-light type="point" color="white" intensity="1" position="0 2 0"></a-light>
+            <!-- Label -->
+            <a-text value="Dining Room" position="0 2.8 0" color="white" font-size="24"></a-text>
+        </a-entity>
+
+        <!-- Library -->
+        <a-entity position="-12 5 8">
+            <!-- Bookshelves -->
+            <a-box position="0 1 0" width="5" height="2" depth="0.8" color="#8B4513"></a-box>
+            <a-box position="0 1 -2" width="5" height="2" depth="0.8" color="#8B4513"></a-box>
+            <!-- Reading chair -->
+            <a-box position="-2.5 0.3 1.5" width="1.5" height="1" depth="1.5" color="#4a2511"></a-box>
+            <!-- Label -->
+            <a-text value="Library" position="0 2.8 0" color="white" font-size="24"></a-text>
+        </a-entity>
+
+        <!-- INTERIOR ROOMS - RIGHT WING -->
+        <!-- Home Theater -->
+        <a-entity position="10 5 8">
+            <!-- Screen -->
+            <a-box position="0 1.5 3" width="6" height="3" depth="0.2" color="#1a1a1a"></a-box>
+            <!-- Seats -->
+            <a-box position="-2 0.3 0" width="1.5" height="1" depth="1.5" color="#2F4F4F"></a-box>
+            <a-box position="2 0.3 0" width="1.5" height="1" depth="1.5" color="#2F4F4F"></a-box>
+            <a-box position="-2 0.3 -1.5" width="1.5" height="1" depth="1.5" color="#2F4F4F"></a-box>
+            <a-box position="2 0.3 -1.5" width="1.5" height="1" depth="1.5" color="#2F4F4F"></a-box>
+            <!-- Label -->
+            <a-text value="Home Theater" position="0 2.8 0" color="white" font-size="24"></a-text>
+        </a-entity>
+
+        <!-- GYM -->
+        <a-entity position="0 5 -15">
+            <!-- Treadmill -->
+            <a-box position="-3 0.4 0" width="1.5" height="1" depth="2" color="#555555"></a-box>
+            <!-- Weight rack -->
+            <a-box position="3 0.5 0" width="1.5" height="2" depth="1" color="#333333"></a-box>
+            <!-- Bench -->
+            <a-box position="0 0.3 -2" width="2" height="0.8" depth="0.8" color="#A0522D"></a-box>
+            <!-- Label -->
+            <a-text value="Gym" position="0 2.5 0" color="white" font-size="24"></a-text>
+        </a-entity>
+
+        <!-- BEDROOMS -->
+        <!-- Master Bedroom -->
+        <a-entity position="-8 5 20">
+            <!-- Bed -->
+            <a-box position="0 0.4 0" width="3" height="1.2" depth="4" color="#4169E1"></a-box>
+            <!-- Nightstand -->
+            <a-box position="2 0.4 -2.5" width="1" height="0.8" depth="0.8" color="#8B4513"></a-box>
+            <!-- Nightstand -->
+            <a-box position="-2 0.4 -2.5" width="1" height="0.8" depth="0.8" color="#8B4513"></a-box>
+            <!-- Dresser -->
+            <a-box position="2 0.6 2" width="1.2" height="1.2" depth="0.8" color="#A0522D"></a-box>
+            <!-- Label -->
+            <a-text value="Master Bedroom" position="0 2.5 0" color="white" font-size="20"></a-text>
+        </a-entity>
+
+        <!-- Guest Bedroom -->
+        <a-entity position="8 5 20">
+            <!-- Bed -->
+            <a-box position="0 0.4 0" width="2.5" height="1" depth="3" color="#DDA0DD"></a-box>
+            <!-- Nightstand -->
+            <a-box position="1.5 0.4 -1.5" width="0.8" height="0.8" depth="0.8" color="#8B4513"></a-box>
+            <!-- Label -->
+            <a-text value="Guest Bedroom" position="0 2.5 0" color="white" font-size="20"></a-text>
+        </a-entity>
+
+        <!-- BATHROOMS -->
+        <!-- Master Bathroom -->
+        <a-entity position="-5 5 25">
+            <!-- Bathtub -->
+            <a-box position="-1 0.4 0" width="2" height="0.8" depth="3" color="#E6F2FF"></a-box>
+            <!-- Toilet -->
+            <a-cylinder position="1.5 0.4 -1" radius="0.3" height="0.8" color="#FFF"></a-cylinder>
+            <!-- Sink -->
+            <a-box position="1.5 0.7 0.5" width="0.8" height="0.6" depth="0.6" color="#C0C0C0"></a-box>
+            <!-- Label -->
+            <a-text value="Master Bath" position="0 2.5 0" color="white" font-size="18"></a-text>
+        </a-entity>
+
+        <!-- Guest Bathroom -->
+        <a-entity position="5 5 25">
+            <!-- Toilet -->
+            <a-cylinder position="-0.5 0.4 0" radius="0.3" height="0.8" color="#FFF"></a-cylinder>
+            <!-- Sink -->
+            <a-box position="0.5 0.7 0" width="0.8" height="0.6" depth="0.6" color="#C0C0C0"></a-box>
+            <!-- Shower -->
+            <a-box position="-1.5 0.8 1" width="1.5" height="1.6" depth="1" color="#B0E0E6"></a-box>
+            <!-- Label -->
+            <a-text value="Guest Bath" position="0 2.5 0" color="white" font-size="18"></a-text>
+        </a-entity>
+
+        <!-- SWIMMING POOL -->
+        <a-entity position="0 0 35">
+            <!-- Pool water -->
+            <a-box position="0 -0.5 0" width="12" height="1" depth="8" color="#1E90FF" material="opacity: 0.7; transparent: true"></a-box>
+            <!-- Pool deck -->
+            <a-box position="0 0.05 0" width="16" height="0.1" depth="12" color="#DAA520"></a-box>
+            <!-- Lounge chairs -->
+            <a-box position="-4 0.2 -4" width="1.2" height="0.3" depth="2" color="#FF8C00"></a-box>
+            <a-box position="-1 0.2 -4" width="1.2" height="0.3" depth="2" color="#FF8C00"></a-box>
+            <a-box position="2 0.2 -4" width="1.2" height="0.3" depth="2" color="#FF8C00"></a-box>
+            <!-- Umbrella (simplified) -->
+            <a-cylinder position="-4 1 -4" radius="0.8" height="2" color="#FF69B4"></a-cylinder>
+            <!-- Label -->
+            <a-text value="Swimming Pool" position="0 1 0" color="white" font-size="24"></a-text>
+        </a-entity>
+
+        <!-- GARAGE -->
+        <a-entity position="-18 5 0">
+            <!-- Garage door -->
+            <a-box position="0 3 0" width="5" height="6" depth="0.3" color="#696969"></a-box>
+            <!-- Door panel lines -->
+            <a-box position="0 1.5 -0.15" width="4.8" height="1" depth="0.1" color="#555555"></a-box>
+            <a-box position="0 3 -0.15" width="4.8" height="1" depth="0.1" color="#555555"></a-box>
+            <a-box position="0 4.5 -0.15" width="4.8" height="1" depth="0.1" color="#555555"></a-box>
+            <!-- Car inside garage -->
+            <a-box position="0 0.5 2.5" width="2" height="1" depth="4" color="#1E90FF"></a-box>
+            <!-- Label -->
+            <a-text value="Garage" position="0 7 0" color="white" font-size="24"></a-text>
+        </a-entity>
+
+        <!-- DRIVEWAY & SPORTS CAR -->
+        <a-entity position="-18 0 -12">
+            <!-- Driveway pavement -->
+            <a-box position="0 0.05 0" width="8" height="0.1" depth="16" color="#444444"></a-box>
+            <!-- Bugatti Chiron 3D Model -->
+            <a-entity gltf-model="#bugatti" position="0 1.5 -5" rotation="0 0 0" scale="25 25 25"></a-entity>
+            <!-- Label -->
+            <a-text value="Bugatti Chiron" position="0 2 -5" color="white" font-size="20"></a-text>
+        </a-entity>
+
+        <!-- GARDEN -->
+        <a-entity position="18 1 10">
+            <!-- Garden fence -->
+            <a-box position="0 1.5 0" width="12" height="3" depth="0.5" color="#8B4513"></a-box>
+            <!-- Trees (simplified cones) -->
+            <a-cone position="-4 1.5 0" radius-bottom="1" radius-top="0.3" height="3" color="#228B22"></a-cone>
+            <a-cone position="0 1.5 0" radius-bottom="1" radius-top="0.3" height="3" color="#228B22"></a-cone>
+            <a-cone position="4 1.5 0" radius-bottom="1" radius-top="0.3" height="3" color="#228B22"></a-cone>
+            <!-- Flowers -->
+            <a-sphere position="-4 0.5 -2" radius="0.3" color="#FF69B4"></a-sphere>
+            <a-sphere position="0 0.5 -2" radius="0.3" color="#FFD700"></a-sphere>
+            <a-sphere position="4 0.5 -2" radius="0.3" color="#FF6347"></a-sphere>
+            <!-- Label -->
+            <a-text value="Garden" position="0 3 0" color="white" font-size="24"></a-text>
+        </a-entity>
+
+        <!-- ADDITIONAL TREES AROUND MANSION -->
+        <!-- Left side trees -->
+        <a-cone position="-25 1.5 5" radius-bottom="1.2" radius-top="0.4" height="3.5" color="#1a6b1a"></a-cone>
+        <a-cone position="-22 1.5 -10" radius-bottom="1" radius-top="0.3" height="3" color="#228B22"></a-cone>
+        <a-cone position="-28 1.5 15" radius-bottom="1.3" radius-top="0.5" height="4" color="#0d4d0d"></a-cone>
+        
+        <!-- Right side trees -->
+        <a-cone position="25 1.5 8" radius-bottom="1.1" radius-top="0.35" height="3.3" color="#1a6b1a"></a-cone>
+        <a-cone position="22 1.5 -12" radius-bottom="1.2" radius-top="0.4" height="3.5" color="#228B22"></a-cone>
+        <a-cone position="28 1.5 12" radius-bottom="1" radius-top="0.3" height="3" color="#0d4d0d"></a-cone>
+        
+        <!-- Front trees -->
+        <a-cone position="-10 1.5 -28" radius-bottom="1.3" radius-top="0.45" height="3.8" color="#1a6b1a"></a-cone>
+        <a-cone position="10 1.5 -25" radius-bottom="1.1" radius-top="0.35" height="3.3" color="#228B22"></a-cone>
+        <a-cone position="0 1.5 -32" radius-bottom="1.2" radius-top="0.4" height="3.5" color="#0d4d0d"></a-cone>
+        
+        <!-- Back trees -->
+        <a-cone position="-15 1.5 40" radius-bottom="1" radius-top="0.3" height="3" color="#1a6b1a"></a-cone>
+        <a-cone position="15 1.5 42" radius-bottom="1.2" radius-top="0.4" height="3.5" color="#228B22"></a-cone>
+        <a-cone position="0 1.5 45" radius-bottom="1.1" radius-top="0.35" height="3.3" color="#0d4d0d"></a-cone>
+
+        <!-- OUTDOOR SEATING AREA -->
+        <a-entity position="-18 0 -10">
+            <!-- Patio -->
+            <a-box position="0 0.05 0" width="12" height="0.1" depth="8" color="#D2B48C"></a-box>
+            <!-- Outdoor table -->
+            <a-box position="0 0.45 0" width="3" height="0.3" depth="3" color="#8B4513"></a-box>
+            <!-- Chairs -->
+            <a-box position="-2 0.4 -2" width="0.8" height="0.8" depth="0.8" color="#A0522D"></a-box>
+            <a-box position="2 0.4 -2" width="0.8" height="0.8" depth="0.8" color="#A0522D"></a-box>
+            <a-box position="-2 0.4 2" width="0.8" height="0.8" depth="0.8" color="#A0522D"></a-box>
+            <a-box position="2 0.4 2" width="0.8" height="0.8" depth="0.8" color="#A0522D"></a-box>
+            <!-- Label -->
+            <a-text value="Patio" position="0 1.5 0" color="white" font-size="22"></a-text>
+        </a-entity>
+
+        <!-- DECORATIVE ELEMENTS -->
+        <!-- Fountain -->
+        <a-entity position="0 0 -30">
+            <a-cone position="0 0.5 0" radius-bottom="2" radius-top="1.5" height="1" color="#DAA520"></a-cone>
+            <a-sphere position="0 1.2 0" radius="0.3" color="#87CEEB"></a-sphere>
+            <!-- Label -->
+            <a-text value="Fountain" position="0 2 0" color="white" font-size="18"></a-text>
+        </a-entity>
+
+        <!-- Sky -->
+        <a-sky color="#87CEEB"></a-sky>
+
+        <!-- Ground marker text -->
+        <a-text value="Welcome to the Luxury Mansion! Explore all rooms and facilities." 
+                 position="0 0.1 -30" 
+                 rotation="-90 0 0" 
+                 color="white" 
+                 font-size="16"
+                 align="center"></a-text>
+    </a-scene>
+
+    <script>
+        // Enhanced movement with smooth controls
+        AFRAME.registerComponent('movement-controls', {
+            schema: {
+                speed: { default: 0.1 },
+                fly: { default: true }
+            },
+            init: function() {
+                this.velocity = new THREE.Vector3();
+                this.keys = {};
+            },
+            tick: function(time, timeDelta) {
+                const data = this.data;
+                const el = this.el;
+                const velocity = this.velocity;
+                const keys = this.keys;
+
+                // Reset velocity
+                velocity.x = 0;
+                velocity.z = 0;
+
+                // Get camera direction
+                const camera = el.querySelector('a-camera');
+                const cameraDir = new THREE.Vector3();
+                camera.object3D.getWorldDirection(cameraDir);
+                cameraDir.y = 0;
+                cameraDir.normalize();
+
+                const right = new THREE.Vector3();
+                right.crossVectors(camera.object3D.up, cameraDir).normalize();
+
+                // Movement
+                if (keys['w'] || keys['W']) velocity.add(cameraDir.multiplyScalar(data.speed));
+                if (keys['s'] || keys['S']) velocity.sub(cameraDir.clone().multiplyScalar(data.speed));
+                if (keys['a'] || keys['A']) velocity.sub(right.clone().multiplyScalar(data.speed));
+                if (keys['d'] || keys['D']) velocity.add(right.clone().multiplyScalar(data.speed));
+                if (keys[' ']) el.object3D.position.y += data.speed;
+                if (keys['Control']) el.object3D.position.y -= data.speed;
+
+                el.object3D.position.add(velocity);
+            }
+        });
+
+        // Listen for key events
+        document.addEventListener('keydown', (e) => {
+            const rig = document.querySelector('#camera-rig');
+            if (rig && rig.components['movement-controls']) {
+                rig.components['movement-controls'].keys[e.key] = true;
+            }
+        });
+
+        document.addEventListener('keyup', (e) => {
+            const rig = document.querySelector('#camera-rig');
+            if (rig && rig.components['movement-controls']) {
+                rig.components['movement-controls'].keys[e.key] = false;
+            }
+        });
+    </script>
+</body>
+</html>
